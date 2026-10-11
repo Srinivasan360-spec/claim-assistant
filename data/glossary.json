@@ -1,0 +1,127 @@
+{
+  "deductible": {
+    "definition": "The fixed amount you pay out of your own pocket before the insurer starts paying.",
+    "plain": "Think of it as your share of the bill that comes first.",
+    "example": "If your deductible is INR 5,000 and the covered bill is INR 50,000, the insurer pays from INR 45,000 onwards."
+  },
+  "co-pay": {
+    "definition": "A percentage of the claim amount you agree to bear yourself at settlement time.",
+    "plain": "You always pay this percentage of the final bill; we pay the rest.",
+    "example": "With a 10% co-pay on a payable INR 50,000, you get INR 45,000 and bear INR 5,000."
+  },
+  "copay": {
+    "definition": "Same as co-pay: a percentage of the claim amount you bear yourself.",
+    "plain": "You always pay this percentage of the final bill; we pay the rest.",
+    "example": "See 'co-pay'."
+  },
+  "sum insured": {
+    "definition": "The maximum total amount the insurer will pay in one policy year.",
+    "plain": "Your policy's overall ceiling for the year.",
+    "example": "A INR 5,00,000 sum insured means claims across the year cannot exceed that amount."
+  },
+  "sub-limit": {
+    "definition": "A cap on a specific item inside your claim, such as room rent per day.",
+    "plain": "Even if your overall cover is large, some line items have their own ceiling.",
+    "example": "A 2% of sum insured room-rent sub-limit caps what is paid for the hospital room each day."
+  },
+  "waiting period": {
+    "definition": "A period after the policy starts during which claims for specific conditions are not payable.",
+    "plain": "New policies need to run for a while before certain conditions are covered.",
+    "example": "A 30-day initial waiting period applies to most claims; a 2-4 year wait may apply to specified diseases."
+  },
+  "pre-existing disease": {
+    "definition": "A medical condition you already had signs or symptoms of before buying the policy.",
+    "plain": "Conditions diagnosed or treated before your policy began.",
+    "example": "Diabetes identified before policy purchase is a pre-existing disease, usually covered only after a waiting period."
+  },
+  "exclusion": {
+    "definition": "A condition, treatment or situation that the policy does not cover.",
+    "plain": "Situations your policy explicitly does not pay for.",
+    "example": "Cosmetic surgery without medical necessity is typically an exclusion."
+  },
+  "cashless claim": {
+    "definition": "Treatment at a network hospital where the insurer pays the hospital directly.",
+    "plain": "You do not settle the full bill yourself; we pay the hospital as per approval.",
+    "example": "At a network hospital you show your card, get pre-authorization, and pay only your share."
+  },
+  "reimbursement claim": {
+    "definition": "You pay the bills first, then claim the money back from the insurer.",
+    "plain": "Pay now, claim later - keep all original bills.",
+    "example": "At a non-network hospital you settle the bill, then upload invoices to get repaid."
+  },
+  "pre-authorization": {
+    "definition": "The insurer's prior approval for treatment in a cashless claim.",
+    "plain": "The hospital asks us first, and we approve the treatment plan before you start.",
+    "example": "The hospital sends admission details; we approve the estimated amount within a few hours."
+  },
+  "adjudication": {
+    "definition": "The process of applying policy terms to a claim to decide what is payable.",
+    "plain": "Where we check your claim against the rules of your policy and decide the amount.",
+    "example": "During adjudication we apply deductibles, co-pays, sub-limits and exclusions to the bill."
+  },
+  "claim repudiation": {
+    "definition": "The formal rejection of a claim, with a written reason.",
+    "plain": "A formal 'no' with the reason in writing.",
+    "example": "A claim for an incident before the policy start date is usually repudiated."
+  },
+  "grievance redressal": {
+    "definition": "The formal process to complain when you disagree with a claim decision.",
+    "plain": "The official escalation route if you think we got it wrong.",
+    "example": "File a grievance within 15 days of the decision letter; a reply is due within 15 days."
+  },
+  "surveyor": {
+    "definition": "An independent expert who inspects the loss or damage for motor claims.",
+    "plain": "The person who comes to look at the damage and write a report.",
+    "example": "After an accident the surveyor inspects the vehicle and estimates repair cost."
+  },
+  "idv": {
+    "definition": "Insured Declared Value - the current market value of your vehicle after depreciation, capped as the maximum motor claim payout.",
+    "plain": "What your vehicle is insured for, based on today's value minus depreciation.",
+    "example": "In a total loss or theft, settlement is limited to the IDV."
+  },
+  "insured declared value": {
+    "definition": "See 'IDV'.",
+    "plain": "What your vehicle is insured for, based on today's value minus depreciation.",
+    "example": "In a total loss or theft, settlement is limited to the IDV."
+  },
+  "third-party liability": {
+    "definition": "Cover for damage or injury you cause to other people or their property.",
+    "plain": "Covers the other party, not you or your vehicle.",
+    "example": "If you damage a shop front while driving, the shop owner's loss is settled under third-party liability."
+  },
+  "own damage": {
+    "definition": "Cover for damage to your own vehicle from accident, theft, fire or natural calamities.",
+    "plain": "Covers your own car or bike.",
+    "example": "Flood damage to your own car is an own damage claim."
+  },
+  "no-claim bonus": {
+    "definition": "A discount on renewal premium for every claim-free policy year.",
+    "plain": "A reward for years when you did not claim.",
+    "example": "Five claim-free years can earn up to a 50% discount on motor OD premium."
+  },
+  "sla": {
+    "definition": "Service Level Agreement - the time the insurer commits to for a claims stage.",
+    "plain": "The clock we promise to work within.",
+    "example": "A 3-day SLA on under review means we aim to finish the review in three working days."
+  },
+  "hospitalization": {
+    "definition": "Inpatient care where you are admitted for at least 24 hours.",
+    "plain": "Being admitted to hospital, not just a visit.",
+    "example": "Appendectomy with two nights stay is a hospitalization."
+  },
+  "day-care procedure": {
+    "definition": "A listed treatment completed in under 24 hours without an overnight stay.",
+    "plain": "Treatments where you go home the same day.",
+    "example": "Cataract surgery or a colonoscopy are day-care procedures."
+  },
+  "settlement": {
+    "definition": "The final payment made against an approved claim.",
+    "plain": "The money we pay you after approval.",
+    "example": "After deductions the settlement of INR 59,500 is credited to your account."
+  },
+  "policy inception": {
+    "definition": "The date the policy cover officially begins.",
+    "plain": "The day your cover starts.",
+    "example": "An incident on 10 September is not covered if your policy began on 14 September."
+  }
+}

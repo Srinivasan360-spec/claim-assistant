@@ -1,0 +1,101 @@
+{
+  "SUBMITTED": {
+    "label": "Claim submitted",
+    "plain": "We have your claim. It is now in our system and waiting for the first check.",
+    "meaning": "Your claim has been registered and will be picked up by the claims team.",
+    "who_acts": "insurer",
+    "next_steps": [
+      "Keep the original bills and reports safe",
+      "Watch for an SMS or email asking for anything else"
+    ],
+    "sla_days": 2
+  },
+  "DOCS_PENDING": {
+    "label": "Awaiting documents",
+    "plain": "We need one or more documents from you before we can move forward.",
+    "meaning": "Processing is paused until the missing documents arrive. The clock restarts when we receive them.",
+    "who_acts": "customer",
+    "next_steps": [
+      "Upload the requested documents through the portal or app",
+      "Make sure scans are clear and every page is included"
+    ],
+    "sla_days": 3
+  },
+  "UNDER_REVIEW": {
+    "label": "Under review",
+    "plain": "A claims specialist is checking your bills against your policy terms.",
+    "meaning": "We are verifying that the claim is covered and the amounts are correct. No action is needed from you right now.",
+    "who_acts": "insurer",
+    "next_steps": [
+      "Nothing needed from you at this stage",
+      "Reply promptly if we ask for any clarification"
+    ],
+    "sla_days": 3
+  },
+  "ADJUDICATION": {
+    "label": "Decision in progress",
+    "plain": "The review is nearly done and a decision on your claim is being finalized.",
+    "meaning": "An adjudicator is applying your policy terms - sub-limits, deductibles and exclusions - to decide the payable amount.",
+    "who_acts": "insurer",
+    "next_steps": [
+      "No action needed from you",
+      "You will receive the decision letter once it is approved internally"
+    ],
+    "sla_days": 4
+  },
+  "APPROVED": {
+    "label": "Approved",
+    "plain": "Good news - your claim has been approved and the settlement amount is set.",
+    "meaning": "The payable amount has been finalized. Payment processing is the next stage.",
+    "who_acts": "insurer",
+    "next_steps": [
+      "Check that your bank details on the portal are correct",
+      "Funds usually reach your account within the stated settlement window"
+    ],
+    "sla_days": 3
+  },
+  "PARTIALLY_APPROVED": {
+    "label": "Partially approved",
+    "plain": "Your claim is approved, but only part of the amount you asked for is payable.",
+    "meaning": "Some items were not payable under your policy - for example room-rent sub-limits, deductibles, co-pay or non-medical items. The decision letter lists each deduction.",
+    "who_acts": "insurer",
+    "next_steps": [
+      "Read the deduction breakup in your decision letter",
+      "You may ask for a breakup review if a deduction looks wrong"
+    ],
+    "sla_days": 5
+  },
+  "REJECTED": {
+    "label": "Not approved",
+    "plain": "Unfortunately this claim cannot be paid under the current policy terms.",
+    "meaning": "The claim fell outside cover - for example outside the policy period, an excluded condition, or missing mandatory evidence. The decision letter states the exact reason.",
+    "who_acts": "customer",
+    "next_steps": [
+      "Read the reason in the decision letter",
+      "If you disagree, raise a grievance within 15 days with supporting evidence"
+    ],
+    "sla_days": 15
+  },
+  "PAYMENT_PROCESSING": {
+    "label": "Payment processing",
+    "plain": "Your settlement has been approved and the money is on its way.",
+    "meaning": "The payment file has been created and is queued for transfer to your registered bank account.",
+    "who_acts": "insurer",
+    "next_steps": [
+      "Watch your bank account for the credit",
+      "If the money does not arrive in 5 working days, contact support with your claim ID"
+    ],
+    "sla_days": 5
+  },
+  "CLOSED": {
+    "label": "Claim closed",
+    "plain": "This claim is fully settled and closed.",
+    "meaning": "Payment has been made and no further action is pending on this claim.",
+    "who_acts": "none",
+    "next_steps": [
+      "Download the settlement letter from the portal for your records",
+      "A new incident needs a new claim"
+    ],
+    "sla_days": 0
+  }
+}

@@ -1,0 +1,23 @@
+# --- secrets / env ---
+.env
+
+# --- python ---
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# --- throwaway test / probe scripts ---
+/timing_probe.py
+/gen_test.json
+
+# --- user data written at runtime ---
+/data/users.json
+
+# --- editors / OS ---
+.vscode/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insurance Claim Explanation Assistant</title>
+<style>
+  :root { --ink:#12233b; --muted:#5c718a; --line:#dde6f0; --brand:#0b5fff;
+          --bg:#f4f7fb; --card:#fff; --ok:#0a8f5b; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.55 "Segoe UI",system-ui,sans-serif;
+         background:var(--bg); color:var(--ink); }
+  header { background:var(--brand); color:#fff; padding:12px 22px;
+           display:flex; justify-content:space-between; align-items:center; gap:12px;
+           flex-wrap:wrap; }
+  header h1 { font-size:17px; margin:0; font-weight:600; }
+  header .cfg { font-size:12px; opacity:.85; }
+  .htools { display:flex; align-items:center; gap:8px; font-size:13px; }
+  .htools button, .htools .tally, .htools a { font-size:13px; }
+  .htools button, .hbtn { background:rgba(255,255,255,.15); color:#fff;
+    border:1px solid rgba(255,255,255,.45); border-radius:8px; padding:5px 11px;
+    cursor:pointer; text-decoration:none; }
+  .htools button:hover, .hbtn:hover { background:rgba(255,255,255,.28); }
+  .tally { background:rgba(255,255,255,.12); border-radius:8px; padding:5px 10px; }
+  main { display:grid; grid-template-columns:260px 1fr; gap:16px;
+         max-width:1100px; margin:18px auto; padding:0 16px; height:76vh; }
+  aside { background:var(--card); border:1px solid var(--line); border-radius:12px;
+          padding:14px; overflow-y:auto; }
+  aside h2 { font-size:12px; text-transform:uppercase; letter-spacing:.08em;
+             color:var(--muted); margin:4px 0 10px; }
+  .claim { border:1px solid var(--line); border-radius:10px; padding:9px 10px;
+           margin-bottom:8px; cursor:pointer; transition:.15s; }
+  .claim:hover { border-color:var(--brand); background:#eef4ff; }
+  .claim b { display:block; font-size:13px; }
+  .claim span { font-size:12px; color:var(--muted); }
+  section.chat { background:var(--card); border:1px solid var(--line);
+                 border-radius:12px; display:flex; flex-direction:column; overflow:hidden; }
+  #log { flex:1; overflow-y:auto; padding:18px; }
+  .msg { max-width:82%; margin-bottom:12px; padding:10px 14px; border-radius:12px;
+         white-space:pre-wrap; }
+  .msg.user { background:var(--brand); color:#fff; margin-left:auto;
+              border-bottom-right-radius:4px; }
+  .msg.bot  { background:#eef2f8; border-bottom-left-radius:4px; }
+  .badge { font-size:11px; color:var(--muted); margin-top:6px; }
+  .card { border:1px solid var(--line); border-left:4px solid var(--ok);
+          background:#f7fbf9; border-radius:10px; padding:10px 12px;
+          margin-bottom:12px; font-size:13px; }
+  .card b { color:var(--ok); }
+  form { display:flex; gap:8px; padding:12px; border-top:1px solid var(--line); }
+  input { flex:1; border:1px solid var(--line); border-radius:8px;
+          padding:11px 12px; font-size:15px; outline:none; }
+  input:focus { border-color:var(--brand); }
+  button { background:var(--brand); color:#fff; border:0; border-radius:8px;
+           padding:0 18px; font-size:15px; cursor:pointer; }
+  .hints { font-size:12px; color:var(--muted); padding:0 14px 10px; }
+  .hints code { background:#eef2f8; padding:1px 5px; border-radius:4px; cursor:pointer; }
+  .hints code:hover { background:#dfe8f6; color:var(--brand); }
+  strong { font-weight:700; }
+  /* glossary box */
+  .gterm { text-decoration:underline dotted var(--brand); cursor:pointer; color:var(--brand); }
+  .panel { position:fixed; top:0; right:0; width:360px; max-width:92vw; height:100vh;
+           background:#fff; border-left:1px solid var(--line); box-shadow:-8px 0 30px rgba(10,30,70,.15);
+           z-index:50; display:flex; flex-direction:column; transform:translateX(0);
+           transition:.2s; }
+  .panel.hidden { transform:translateX(105%); }
+  .panel-head { padding:14px; border-bottom:1px solid var(--line); display:flex;
+                gap:8px; align-items:center; }
+  .panel-head input { padding:8px 10px; }
+  .panel-head button { padding:4px 10px; font-size:14px; }
+  #glist { overflow-y:auto; padding:10px 14px; }
+  .gitem { border-bottom:1px solid var(--line); padding:9px 2px; cursor:pointer; }
+  .gitem b { color:var(--brand); }
+  .gitem .gbody { display:none; font-size:13.5px; color:var(--ink); padding:6px 0 4px; }
+  .gitem.open .gbody { display:block; }
+  .gitem .gbody .plain { color:var(--muted); margin-top:3px; }
+  .gitem .gbody .ex { color:var(--muted); font-size:12.5px; margin-top:3px; }
+  .gask { background:#eef4ff; color:var(--brand); border:1px solid #cddcff;
+          border-radius:6px; padding:3px 9px; font-size:12px; margin-top:7px; }
+  /* rating */
+  .ratebar { margin-top:8px; font-size:12px; color:var(--muted); display:flex;
+             gap:6px; align-items:center; white-space:normal; }
+  .rate { background:#fff; color:var(--ink); border:1px solid var(--line);
+          border-radius:6px; padding:2px 8px; font-size:12px; }
+  .rate:hover { border-color:var(--brand); color:var(--brand); }
+  .rmsg { color:var(--ok); }
+  @media (max-width:760px){ main{grid-template-columns:1fr; height:auto;} aside{max-height:180px;} }
+</style>
+</head>
+<body>
+<header>
+  <h1>Insurance Claim Explanation Assistant</h1>
+  <span class="cfg">{{ config }}</span>
+  <div class="htools">
+    <span class="tally" id="tally">{% if rating_pct is not none %}{{ rating_pct }}% clear ({{ rating_total }}){% else %}No ratings yet{% endif %}</span>
+    <button id="gopen" type="button">Glossary</button>
+    {% if profile_name %}<span>Hi, {{ profile_name.split(' ')[0] }}</span>{% else %}<span>Guest</span>{% endif %}
+    <form method="post" action="/logout" style="margin:0"><button class="hbtn" type="submit">Log out</button></form>
+  </div>
+</header>
+<main>
+  <aside>
+    <h2>Demo claims</h2>
+    {% for c in claims %}
+    <div class="claim" data-claim="{{ c.claim_id }}">
+      <b>{{ c.claim_id }}</b>
+      <span>{{ c.coverage_type }} &middot; {{ c.status_code.replace('_',' ').title() }}</span>
+    </div>
+    {% endfor %}
+  </aside>
+  <section class="chat">
+    <div id="log">
+      <div class="msg bot">Hi{% if profile_name %} {{ profile_name.split(' ')[0] }}{% endif %}! Ask me about any claim - its status, what it means,
+your coverage, or what happens next. Underlined terms are clickable - or open
+the Glossary box on the right. You can also ask what a term like
+"deductible" or "co-pay" means.</div>
+    </div>
+    <div class="hints">
+      Try: <code>Explain claim CLM-1001</code>
+      <code>What happens next for CLM-1002?</code>
+      <code>Why was my amount reduced?</code>
+      <code>What is a deductible?</code>
+    </div>
+    <form id="f">
+      <input id="q" autocomplete="off" placeholder="Type a claim ID or question...">
+      <button type="submit">Ask</button>
+    </form>
+  </section>
+</main>
+
+<div class="panel hidden" id="gloss">
+  <div class="panel-head">
+    <b>Glossary</b>
+    <input id="gsearch" placeholder="Search a coverage term...">
+    <button id="gclose" type="button">&#10005;</button>
+  </div>
+  <div id="glist"></div>
+</div>
+
+<script>
+const log = document.getElementById('log');
+const q = document.getElementById('q');
+const sessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+                 : String(Math.random()).slice(2) + Date.now();
+let GLOSSARY = [];
+
+function esc(s){ const d=document.createElement('div'); d.innerText=s; return d.innerHTML; }
+function md(s){ return esc(s)
+  .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+  .replace(/^- (.+)$/gm,'<li>$1</li>'); }
+function add(html, cls){
+  const div=document.createElement('div'); div.className='msg '+cls;
+  div.innerHTML=html; log.appendChild(div); log.scrollTop=log.scrollHeight;
+  return div;
+}
+function addCard(v){
+  if(!v) return;
+  const money = n => (typeof n==='number') ? v.currency+' '+n.toLocaleString('en-IN') : 'not decided yet';
+  const div=document.createElement('div'); div.className='card';
+  div.innerHTML = `<b>${esc(v.claim_id)} - ${esc(v.status_label)}</b><br>
+    ${esc(v.policy_type)} cover &middot; ${esc(v.coverage_type)}<br>
+    claimed ${money(v.claimed_amount)} &middot; approved ${money(v.approved_amount)}
+    ${v.simulated?'<br><span style="color:#5c718a">live simulated status</span>':''}`;
+  log.appendChild(div); log.scrollTop=log.scrollHeight;
+}
+
+/* --- rating widget (feeds the 85% clarity metric) --- */
+function updateTally(d){
+  const el=document.getElementById('tally');
+  if(el) el.textContent = (d.percent==null)
+    ? (d.total ? d.total+' rating(s)' : 'No ratings yet')
+    : d.percent+'% clear ('+d.total+')';
+}
+function addRating(botDiv){
+  const bar=document.createElement('div'); bar.className='ratebar';
+  bar.innerHTML='Was this clear? <button class="rate" data-v="yes">&#128077; Yes</button>'
+    +'<button class="rate" data-v="no">&#128078; No</button><span class="rmsg"></span>';
+  botDiv.appendChild(bar);
+  bar.querySelectorAll('.rate').forEach(b=>b.addEventListener('click', async ()=>{
+    bar.querySelectorAll('.rate').forEach(x=>x.disabled=true);
+    try{
+      const r=await fetch('/api/ratings',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({helpful:b.dataset.v==='yes'})});
+      const d=await r.json();
+      updateTally(d);
+      bar.querySelector('.rmsg').textContent=' Thanks for the feedback!';
+    }catch(e){ bar.querySelector('.rmsg').textContent=' (could not save)'; }
+    log.scrollTop=log.scrollHeight;
+  }));
+}
+
+/* --- glossary box --- */
+const glist=document.getElementById('glist');
+const gloss=document.getElementById('gloss');
+function renderGloss(filter){
+  const f=(filter||'').toLowerCase();
+  glist.innerHTML='';
+  GLOSSARY.filter(t=>!f || t.term.includes(f) || t.definition.toLowerCase().includes(f))
+    .forEach(t=>{
+      const div=document.createElement('div'); div.className='gitem';
+      div.innerHTML=`<b>${esc(t.term)}</b>
+        <div class="gbody">${esc(t.definition)}
+          <div class="plain">${esc(t.plain)}</div>
+          <div class="ex">Example: ${esc(t.example)}</div>
+          <button class="gask" type="button">Ask the assistant</button>
+        </div>`;
+      div.querySelector('b').addEventListener('click', ()=>{
+        div.classList.toggle('open');
+        if(div.classList.contains('open')) div.scrollIntoView({block:'nearest'});
+      });
+      div.querySelector('.gask').addEventListener('click', ()=>{
+        gloss.classList.add('hidden');
+        send(`What does ${t.term} mean for my claim?`);
+      });
+      glist.appendChild(div);
+    });
+}
+function openGloss(term){
+  renderGloss('');
+  gloss.classList.remove('hidden');
+  const f=document.getElementById('gsearch');
+  f.value=term || '';
+  renderGloss(term ? term.toLowerCase() : '');
+  if(term){
+    const first=glist.querySelector('.gitem');
+    if(first) first.classList.add('open');
+  }
+}
+document.getElementById('gopen').addEventListener('click', ()=>openGloss(''));
+document.getElementById('gclose').addEventListener('click', ()=>gloss.classList.add('hidden'));
+document.getElementById('gsearch').addEventListener('input', e=>renderGloss(e.target.value));
+fetch('/api/glossary').then(r=>r.json()).then(d=>{ GLOSSARY=d.terms||[]; renderGloss(''); })
+  .catch(()=>{ GLOSSARY=[]; });
+
+/* make the first occurrence of any glossary term inside a reply clickable */
+function linkTerms(el){
+  const terms=GLOSSARY.map(t=>t.term.toLowerCase()).sort((a,b)=>b.length-a.length);
+  if(!terms.length) return;
+  const walker=document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+  const linked=new Set();
+  for(const node of nodes){
+    const parent=node.parentElement;
+    if(!parent || parent.closest('.gterm,.badge,.card,code')) continue;
+    const lower=node.nodeValue.toLowerCase();
+    if(!terms.some(t=>lower.includes(t))) continue;
+    let rest=node.nodeValue, frag=document.createDocumentFragment(), guard=0;
+    while(rest && guard++<60){
+      let bestIdx=-1, bestTerm='';
+      for(const t of terms){
+        const i=rest.toLowerCase().indexOf(t);
+        if(i>=0 && (bestIdx<0 || i<bestIdx)){ bestIdx=i; bestTerm=t; }
+      }
+      if(bestIdx<0){ frag.appendChild(document.createTextNode(rest)); break; }
+      frag.appendChild(document.createTextNode(rest.slice(0,bestIdx)));
+      if(!linked.has(bestTerm)){
+        const span=document.createElement('span');
+        span.className='gterm'; span.dataset.term=bestTerm;
+        span.textContent=rest.slice(bestIdx, bestIdx+bestTerm.length);
+        frag.appendChild(span);
+        linked.add(bestTerm);
+      }else{
+        frag.appendChild(document.createTextNode(rest.slice(bestIdx, bestIdx+bestTerm.length)));
+      }
+      rest=rest.slice(bestIdx+bestTerm.length);
+    }
+    node.parentNode.replaceChild(frag, node);
+  }
+}
+log.addEventListener('click', e=>{
+  const t=e.target.closest('.gterm');
+  if(t) openGloss(t.dataset.term);
+});
+
+/* --- chat --- */
+async function send(text){
+  if(!text.trim()) return;
+  add(esc(text), 'user'); q.value='';
+  const pending = add('...', 'bot');
+  try{
+    const r = await fetch('/api/chat',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:text, session_id:sessionId})});
+    const data = await r.json();
+    pending.innerHTML = md(data.reply || 'Sorry, no response.');
+    if(data.claim_view) addCard(data.claim_view);
+    if(data.note && data.provider !== 'ollama')
+      pending.innerHTML += `<div class="badge">[${esc(data.provider)}: ${esc(data.note)}]</div>`;
+    linkTerms(pending);
+    addRating(pending);
+  }catch(e){ pending.textContent = 'Could not reach the server - please retry.'; }
+  log.scrollTop=log.scrollHeight;
+}
+document.getElementById('f').addEventListener('submit', e=>{ e.preventDefault(); send(q.value); });
+document.querySelectorAll('.claim').forEach(el =>
+  el.addEventListener('click', () => send('Explain claim ' + el.dataset.claim)));
+/* suggested-question chips actually work now */
+document.querySelectorAll('.hints code').forEach(el =>
+  el.addEventListener('click', () => send(el.textContent)));
+</script>
+</body>
+</html>

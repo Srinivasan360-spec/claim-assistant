@@ -1,0 +1,17 @@
+Real-world motor insurance practices in India - reference notes (synthetic demo, public information)
+
+Section A. Who sells motor insurance in India. Real-world motor cover comes from companies such as ICICI Lombard General Insurance, HDFC ERGO General Insurance, Bajaj Allianz General Insurance, TATA AIG General Insurance, SBI General, Go-Digit General Insurance, New India Assurance, Oriental Insurance and United India Insurance. Their public websites (icicilombard.com, hdfcergo.com, bajajallianz.com, tataaig.com, sbigeneral.co.in, newindia.co.in) publish claim procedures, garage lists and claim forms.
+
+Section B. Familiar real cover types. A real comprehensive motor policy works like our sample Motor Secure plan: own damage cover for your own vehicle plus statutory third-party liability for injury or damage you cause to others. Standalone own-damage and third-party policies are also sold separately, and a voluntary deductible lowers the premium in exchange for a small share of each claim.
+
+Section C. Cashless garages in practice. Leading insurers maintain networks of thousands of partner garages where repairs are cashless after survey and approval; at a non-network garage the customer pays and claims reimbursement. Ask for the current garage list before starting repairs, because approval at a network garage removes most follow-up calls.
+
+Section D. How real motor claims run. The customer intimates the claim within about 48 hours, an insurer or IRDAI-licensed surveyor inspects the vehicle and submits a report, and repairs start after approval; theft and total-loss claims are settled at the Insured Declared Value (IDV), which is market value minus depreciation. Depreciation rates follow IRDAI's prescribed table - for example roughly 50 percent per year on rubber and plastic parts - so a claim pays the depreciated value of replaced parts, not the new part price.
+
+Section E. Third-party liability is different. Third-party injury or property damage is settled under the Motor Vehicles Act and IRDAI's third-party regulations, which set stricter statutory timelines and limits than own-damage claims; liability for bodily injury has no fixed monetary cap. Exact current timelines are notified by IRDAI from time to time - check irdai.gov.in before quoting a specific number.
+
+Section F. Documents that decide real claims. A valid driving licence of the person driving at the time, the registration certificate, an FIR or police report where applicable, the repair estimate and the claim form are the standard set; missing paperwork is the most common cause of delay in real motor claims, exactly like our DOCS_PENDING example CLM-1002.
+
+Section G. Comparing real insurers. Claim settlement ratio for leading private motor insurers is commonly reported in the mid-to-high 90s percent in recent years, with public-sector insurers disclosing their own figures through IRDAI. Numbers vary by year and claim definition - use the insurer's latest disclosure or IRDAI's published statistics for current values.
+
+Section H. Why this matters for this demo. The synthetic motor claims here follow the real process - intimation, survey, adjudication, IDV and depreciation logic - so the assistant's explanations transfer to real situations. Company names above are real; every driver, vehicle and amount in this demo is synthetic.

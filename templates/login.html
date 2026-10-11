@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in - Claim Explanation Assistant</title>
+<style>
+  :root { --ink:#12233b; --muted:#5c718a; --line:#dde6f0; --brand:#0b5fff; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; display:flex; align-items:center;
+         justify-content:center; font:15px/1.55 "Segoe UI",system-ui,sans-serif;
+         background:linear-gradient(135deg,#eef3ff 0%,#f4f7fb 60%); color:var(--ink); }
+  .box { background:#fff; border:1px solid var(--line); border-radius:14px;
+         padding:30px 32px; width:380px; max-width:92vw;
+         box-shadow:0 12px 40px rgba(10,30,70,.08); }
+  h1 { margin:0 0 4px; font-size:20px; }
+  p.sub { margin:0 0 18px; color:var(--muted); font-size:13.5px; }
+  label { display:block; font-size:13px; color:var(--muted); margin:12px 0 4px; }
+  input, select { width:100%; border:1px solid var(--line); border-radius:8px;
+                  padding:10px 12px; font-size:15px; outline:none; }
+  input:focus { border-color:var(--brand); }
+  button { width:100%; margin-top:18px; background:var(--brand); color:#fff;
+           border:0; border-radius:8px; padding:11px; font-size:15px; cursor:pointer; }
+  button:hover { filter:brightness(1.06); }
+  .alt { margin-top:14px; font-size:13.5px; text-align:center; }
+  .alt a { color:var(--brand); }
+  .err { background:#fdecec; color:#b3261e; border:1px solid #f6c8c8;
+         border-radius:8px; padding:9px 12px; font-size:13.5px; margin-bottom:6px; }
+  .guest { display:block; text-align:center; margin-top:12px; font-size:13px; }
+  .guest button { background:#fff; color:var(--brand); border:1px solid var(--line);
+                  width:auto; padding:8px 16px; margin-top:8px; }
+  .note { font-size:12px; color:var(--muted); margin-top:14px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Welcome back</h1>
+  <p class="sub">Sign in for explanations personalised to your name, policy and preferred style.</p>
+  {% if error %}<div class="err">{{ error }}</div>{% endif %}
+  <form method="post" action="/login">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required autofocus>
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required>
+    <button type="submit">Log in</button>
+  </form>
+  <div class="alt">New here? <a href="/signup">Create an account</a></div>
+  <div class="guest">
+    <form method="post" action="/guest">
+      <button type="submit">Continue as guest &rarr;</button>
+    </form>
+  </div>
+  <div class="note">Demo only: accounts stay in this browser's local data file.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign up - Claim Explanation Assistant</title>
+<style>
+  :root { --ink:#12233b; --muted:#5c718a; --line:#dde6f0; --brand:#0b5fff; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; display:flex; align-items:center;
+         justify-content:center; font:15px/1.55 "Segoe UI",system-ui,sans-serif;
+         background:linear-gradient(135deg,#eef3ff 0%,#f4f7fb 60%); color:var(--ink); }
+  .box { background:#fff; border:1px solid var(--line); border-radius:14px;
+         padding:28px 32px; width:440px; max-width:94vw;
+         box-shadow:0 12px 40px rgba(10,30,70,.08); }
+  h1 { margin:0 0 4px; font-size:20px; }
+  p.sub { margin:0 0 10px; color:var(--muted); font-size:13.5px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:0 12px; }
+  .grid .full { grid-column:1 / -1; }
+  label { display:block; font-size:13px; color:var(--muted); margin:11px 0 4px; }
+  input, select { width:100%; border:1px solid var(--line); border-radius:8px;
+                  padding:10px 12px; font-size:15px; outline:none; font-family:inherit; }
+  input:focus, select:focus { border-color:var(--brand); }
+  button[type=submit] { width:100%; margin-top:18px; background:var(--brand); color:#fff;
+           border:0; border-radius:8px; padding:11px; font-size:15px; cursor:pointer; }
+  button[type=submit]:hover { filter:brightness(1.06); }
+  .alt { margin-top:14px; font-size:13.5px; text-align:center; }
+  .alt a { color:var(--brand); }
+  .err { background:#fdecec; color:#b3261e; border:1px solid #f6c8c8;
+         border-radius:8px; padding:9px 12px; font-size:13.5px; margin-bottom:6px; }
+  .note { font-size:12px; color:var(--muted); margin-top:13px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Create your account</h1>
+  <p class="sub">We use these details only to personalise your claim explanations -
+     name, preferred style and policy reference; nothing leaves this machine.</p>
+  {% if error %}<div class="err">{{ error }}</div>{% endif %}
+  <form method="post" action="/signup">
+    <div class="grid">
+      <div>
+        <label for="name">Full name *</label>
+        <input id="name" name="name" required value="{{ form.get('name','') }}" autofocus>
+      </div>
+      <div>
+        <label for="email">Email *</label>
+        <input id="email" name="email" type="email" required value="{{ form.get('email','') }}">
+      </div>
+      <div>
+        <label for="phone">Phone (optional)</label>
+        <input id="phone" name="phone" type="tel" value="{{ form.get('phone','') }}">
+      </div>
+      <div>
+        <label for="policy_no">Policy number (optional)</label>
+        <input id="policy_no" name="policy_no" placeholder="POL-H-00000"
+               value="{{ form.get('policy_no','') }}">
+      </div>
+      <div class="full">
+        <label for="style">Preferred explanation style</label>
+        <select id="style" name="style">
+          <option value="simple" {% if form.get('style','simple')=='simple' %}selected{% endif %}>
+            Simple - short, plain English</option>
+          <option value="detailed" {% if form.get('style')=='detailed' %}selected{% endif %}>
+            Detailed - include recent claim timeline</option>
+        </select>
+      </div>
+      <div>
+        <label for="password">Password * (min 4 chars)</label>
+        <input id="password" name="password" type="password" required>
+      </div>
+      <div>
+        <label for="confirm">Confirm password *</label>
+        <input id="confirm" name="confirm" type="password" required>
+      </div>
+    </div>
+    <button type="submit">Sign up</button>
+  </form>
+  <div class="alt">Already registered? <a href="/login">Log in</a></div>
+  <div class="note">Demo only: passwords are stored salted + hashed in a local file.</div>
+</div>
+</body>
+</html>
